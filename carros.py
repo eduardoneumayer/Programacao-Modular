@@ -112,10 +112,3 @@ def atualizar_servico_interno(placa: str, indice: int, novo_dado: dict) -> bool:
             salvar_dados()
             return True
     return False
-
-def reset():
-    """
-    Opcional: usado pelos testadores para garantir cenário limpo.
-    """
-    _DB.clear()
-    salvar_dados() # <--- ADICIONE ISSO PARA LIMPAR O ARQUIVO TAMBÉM AO REINICIAR

@@ -40,6 +40,21 @@ def run():
     res = financeiro.aplica_taxa(100.00, -10)
     assert_false(res, "FIN-06: Taxa negativa retorna False")
 
+    # FIN-07: Cálculo Líquido (Simulação de Cobrança)
+    # Cenário: Valor 100.00 | Desconto 10% (-10) | Taxa 5% (+5) | Final = 95.00
+    val = financeiro.calcular_liquido(100.00, desc_perc=10, taxa_perc=5)
+    assert_equal(val, 95.00, "FIN-07: Cálculo Líquido (Bruto - Desc + Taxa)")
+
+    # Cenário de erro nos percentuais
+    val_erro = financeiro.calcular_liquido(100.00, -10, 0)
+    assert_equal(val_erro, -1.0, "FIN-07: Retorna -1.0 se input for inválido")
+
+    resumo()
+
+    # Teste com erro nos percentuais
+    res = financeiro.calcular_liquido(100.00, -10, 5)
+    assert_equal(res, -1.0, "FIN-07: Retorna -1.0 se percentual inválido")
+
     resumo()
 
 if __name__ == "__main__":

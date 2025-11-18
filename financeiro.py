@@ -19,7 +19,6 @@ def aplica_desconto(valor: float, percentual: float) -> float:
     Aplica um desconto percentual (0-100) sobre um valor.
     Retorna False se o percentual for inválido.
     """
-    # Retorna False se inválido, conforme padrão dos testes
     if percentual < 0 or percentual > 100:
         return False 
     desconto = valor * (percentual / 100)
@@ -34,3 +33,17 @@ def aplica_taxa(valor: float, percentual: float) -> float:
         return False
     taxa = valor * (percentual / 100)
     return valor + taxa
+
+def calcular_liquido(valor: float, desc_perc: float, taxa_perc: float) -> float:
+    """
+    Calcula o valor final aplicando desconto e taxa simultaneamente sobre o bruto.
+    Fórmula: Valor - (Valor * Desc%) + (Valor * Taxa%)
+    Retorna -1.0 em caso de erro nos percentuais.
+    """
+    if desc_perc < 0 or desc_perc > 100 or taxa_perc < 0:
+        return -1.0
+    
+    val_desc = valor * (desc_perc / 100)
+    val_taxa = valor * (taxa_perc / 100)
+    
+    return valor - val_desc + val_taxa

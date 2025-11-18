@@ -44,7 +44,11 @@ def run():
 
     # PRI-05: Histórico Completo
     hist = principal.historico_carro("ABC1234")
-    assert_equal(hist['total_gasto'], 300.00, "PRI-05: Historico traz total correto")
+    
+    # --- CORREÇÃO AQUI: chaves atualizadas para 'total_servicos' e 'total_pago' ---
+    assert_equal(hist['total_servicos'], 300.00, "PRI-05: Historico traz total de serviços correto")
+    assert_equal(hist['total_pago'], 0.00, "PRI-05: Historico traz total pago zerado (ainda não pagou)")
+    
     assert_equal(hist['dados_veiculo']['modelo'], "Fiat Uno", "PRI-05: Historico traz dados do carro")
 
     # PRI-06: Resumo Serviço

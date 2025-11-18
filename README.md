@@ -1,117 +1,61 @@
-# 📄 README – Pessoa 1
+# Sistema de Gerenciamento de Oficina Mecânica 🚗🔧
 
-## 📂 Módulos e Testadores
-- **Módulos**: `validacao.py` e `carros.py`
-- **Testadores**: `testador_validacao.py` e `testador_carros.py`
+**Disciplina:** INF1040/INF1301 - Programação Modular (PUC-Rio)  
+**Linguagem:** Python 3 (Puro)
 
-Este README documenta exclusivamente a parte desenvolvida pelo **Integrante 1** do grupo, referente aos módulos **Validação** e **Carros**, além dos respectivos programas testadores implementados em Python puro, seguindo as regras da disciplina de **Programação Modular**.
+## 📝 Sobre o Projeto
 
----
+Este projeto consiste em um sistema modular desenvolvido em Python para o gerenciamento de uma oficina mecânica. O objetivo é permitir o controle completo de veículos, ordens de serviço e cálculos financeiros de forma organizada e escalável.
 
-## 🚀 Visão Geral
+A aplicação foi projetada com base nos princípios da **programação modular**, dividindo suas responsabilidades em componentes independentes (baixo acoplamento) coordenados por um módulo principal.
 
-Nesta parte do projeto, foram implementados:
-
-### ✅ Módulos de Código
-
-#### `validacao.py`
-Responsável por validar e normalizar entradas da aplicação, incluindo:
-- Formato de placa (tradicional e Mercosul)
-- Ano do veículo
-- Conjunto mínimo de dados para cadastro de carro
-
-#### `carros.py`
-Realiza a gestão de veículos cadastrados, com as seguintes funcionalidades:
-- Cadastro
-- Listagem
-- Busca
-- Remoção
-
-Ambos os módulos seguem o princípio da **programação modular**, sem uso de classes ou frameworks externos.
+### Funcionalidades Principais
+- **Cadastro de Veículos:** Inclusão, busca, listagem e remoção (CRUD).
+- **Gestão de Serviços:** Registro de manutenções atreladas a veículos.
+- **Módulo Financeiro:** Cálculo automático de totais, aplicação de descontos e taxas.
+- **Validação de Dados:** Verificação de placas (padrão Mercosul e antigo) e anos de fabricação.
+- **Relatórios:** Exportação de dados consolidados para arquivo CSV.
 
 ---
 
-## 🧪 Programas Testadores
+## 📂 Estrutura do Projeto
 
-Cada módulo possui seu próprio arquivo de testes:
+O projeto está organizado em módulos funcionais e seus respectivos testadores unitários/integrados:
 
-| **Módulo**      | **Testador**            | **Conteúdo**                                      |
-|------------------|-------------------------|--------------------------------------------------|
-| `validacao.py`   | `testador_validacao.py` | Testes para placa, ano e estrutura mínima do carro |
-| `carros.py`      | `testador_carros.py`    | Testes para cadastro, listagem, busca e remoção  |
-
-Os testadores possuem um relatório padronizado (**OK/FAIL**) e utilizam o arquivo auxiliar `testador_common.py`.
-
----
-
-## ▶️ Como Executar os Testes
-
-1. Certifique-se de que os arquivos estão no mesmo diretório:
-   - `validacao.py`  
-   - `carros.py`  
-   - `testador_validacao.py`  
-   - `testador_carros.py`  
-   - `testador_common.py`  
-
-2. Execute os testadores via terminal:
-   ```bash
-   python testador_validacao.py
-   python testador_carros.py
-   ```
-
-3. Saída esperada no console:
-   ```
-   OK  - placa tradicional com hífen válida
-   OK  - normaliza para maiúsculo sem hífen
-   OK  - valida_carro com dados válidos
-   ...
-
-   --- RESUMO ---
-   Passaram: X  |  Falharam: Y
-   ```
-
-   Se Falharam: 0, o módulo está funcionando corretamente.
+| Arquivo | Responsabilidade |
+| :--- | :--- |
+| `carros.py` | Banco de dados em memória e gestão de veículos. |
+| `servicos.py` | Gestão das listas de serviços vinculadas aos carros. |
+| `financeiro.py` | Lógica de cálculos matemáticos (somas, descontos, taxas). |
+| `validacao.py` | Regras de negócio para validação de entradas (Regex, Datas). |
+| `principal.py` | **Maestro do sistema**. Coordena as chamadas entre módulos e gera o CSV. |
+| `testador_*.py` | Scripts de teste automatizados (veja seção abaixo). |
+| `testador_common.py` | Utilitários para padronização dos logs de teste. |
 
 ---
 
-## 🔁 Reset do módulo carros
+## 🧪 Estratégia de Testes (TDD)
 
-O módulo `carros.py` possui a função `reset()` para limpar o armazenamento em memória:
+O desenvolvimento seguiu rigorosamente a metodologia **TDD (Test-Driven Development)**. Isso significa que os testes foram planejados para validar cada função isoladamente antes e durante a integração.
 
-```python
-import carros
-carros.reset()
-```
+Não foram utilizados frameworks externos (como `pytest` ou `unittest`); toda a suíte de testes foi implementada em Python puro para fins didáticos.
 
-Isso é útil para garantir que os testes rodem sempre com um cenário limpo.
+### Como Executar os Testes
 
----
+Para validar o funcionamento do sistema, execute os comandos abaixo no seu terminal, dentro da pasta do projeto:
 
-## 📦 Dependências
+#### 1. Testes Unitários (Por Módulo)
+Validam a lógica interna de cada componente isoladamente.
 
-- Python 3.8 ou superior
-- Nenhuma dependência externa
-- Apenas módulos internos do próprio projeto
+```bash
+# Testa validação de placas e anos
+python3 testador_validacao.py
 
----
+# Testa o cadastro e busca de carros
+python3 testador_carros.py
 
-## 🧠 Metodologia Utilizada
+# Testa registro e edição de serviços
+python3 testador_servicos.py
 
-Foi aplicado o ciclo básico de **TDD (Test-Driven Development)**:
-- Testes definidos primeiro
-- Implementação mínima para o teste passar
-- Pequenas refatorações quando necessário
-- Execução repetida dos testadores para garantir estabilidade
-
-Isso garante que os módulos:
-- sejam confiáveis,
-- possam ser usados por outros módulos sem efeitos colaterais,
-- e sigam o padrão de modularização pedido na disciplina.
-
----
-
-## 📬 Contato / Identificação
-
-Integrante responsável: **Pessoa 1** — [Seu Nome Aqui]
-Módulos implementados: `validacao.py`, `carros.py`
-Testadores: `testador_validacao.py`, `testador_carros.py`
+# Testa cálculos matemáticos
+python3 testador_financeiro.py

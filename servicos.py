@@ -3,13 +3,11 @@ import carros
 def registra_servico(placa: str, descricao: str, valor: float) -> bool:
     if not descricao or not isinstance(descricao, str):
         return False
-    # Aceita int ou float, converte para float para padronizar
     if not isinstance(valor, (int, float)) or valor <= 0:
         return False
 
-    key = carros._key(placa)
-    # Verifica se o carro existe no banco de dados
-    if key not in carros._DB:
+    # Verifica existência via função pública
+    if not carros.busca_carro(placa):
         return False
 
     novo_servico = {
@@ -17,33 +15,25 @@ def registra_servico(placa: str, descricao: str, valor: float) -> bool:
         "valor": float(valor)
     }
 
-    carros._DB[key]["servicos"].append(novo_servico)
-    return True
+    # CRITÉRIO 4: Usa função de acesso, não mexe na variável global
+    return carros.anexar_servico_interno(placa, novo_servico)
 
 def lista_servico(placa: str) -> list:
-    key = carros._key(placa)
-    if key in carros._DB:
-        return list(carros._DB[key]["servicos"])
+    carro = carros.busca_carro(placa)
+    if carro:
+        return carro.get("servicos", [])
     return []
 
 def remove_servico(placa: str, indice: int) -> bool:
-    key = carros._key(placa)
-    if key in carros._DB:
-        servicos = carros._DB[key]["servicos"]
-        if 0 <= indice < len(servicos):
-            servicos.pop(indice)
-            return True
-    return False
+    return carros.remover_servico_interno(placa, indice)
 
 def edita_servico(placa: str, indice: int, nova_descricao: str, novo_valor: float) -> bool:
     if not isinstance(novo_valor, (int, float)) or novo_valor <= 0:
         return False
     
-    key = carros._key(placa)
-    if key in carros._DB:
-        servicos = carros._DB[key]["servicos"]
-        if 0 <= indice < len(servicos):
-            servicos[indice]["descricao"] = nova_descricao
-            servicos[indice]["valor"] = float(novo_valor)
-            return True
-    return False
+    dados_atualizados = {
+        "descricao": nova_descricao,
+        "valor": float(novo_valor)
+    }
+    
+    return carros.atualizar_servico_interno(placa, indice, dados_atualizados)

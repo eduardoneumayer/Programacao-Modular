@@ -1,5 +1,5 @@
 import csv
-import os  # Adicionado para gerenciar caminhos
+import os 
 import carros
 import servicos
 import financeiro
@@ -9,6 +9,9 @@ import validacao
 # Funções de Coordenação (Handlers)
 # Conforme Relatório [PRI-01 a PRI-04]
 # ==========================================
+
+# Inicialização: Carrega dados persistidos (CRITÉRIO 5)
+carros.carregar_dados()
 
 def handle_carros(operacao: str, **kwargs):
     if operacao == 'adicionar':

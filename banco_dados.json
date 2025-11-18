@@ -1,0 +1,17 @@
+{
+    "PER2025": {
+        "placa": "PER2025",
+        "modelo": "Toyota Corolla",
+        "ano": 2022,
+        "servicos": [
+            {
+                "descricao": "Revis\u00e3o 10k",
+                "valor": 500.0
+            },
+            {
+                "descricao": "Troca de Pastilha",
+                "valor": 300.0
+            }
+        ]
+    }
+}
